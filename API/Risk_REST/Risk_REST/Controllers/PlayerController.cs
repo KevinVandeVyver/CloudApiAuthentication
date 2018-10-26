@@ -8,7 +8,7 @@ using Risk_REST.DataLayerClasses;
 using Risk_REST.Models;
 namespace Risk_REST.Controllers
 {
-    [Route("api/players")]
+    [Route("api/player")]
     public class PlayerController : Controller
     {
 
@@ -20,7 +20,7 @@ namespace Risk_REST.Controllers
         }
 
 
-        // GET api/players
+        // GET api/player
         [HttpGet]
         public IEnumerable<Player> Get()
         {
@@ -28,27 +28,27 @@ namespace Risk_REST.Controllers
             return dataLayer.getPlayer(0);
         }
 
-        // GET api/players/5
-        [HttpGet("{id}", Name = "getPlayers")]
+        // GET api/player/5
+        [HttpGet("{id}", Name = "getPlayer")]
         public IEnumerable<Player> Get(int id)
         {
             DataLayer dataLayer = new DataLayer(_configuration);
             return dataLayer.getPlayer(id);
         }
 
-        // POST api/players
+        // POST api/player
         [HttpPost]
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/players/5
+        // PUT api/player/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/players/5
+        // DELETE api/player/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

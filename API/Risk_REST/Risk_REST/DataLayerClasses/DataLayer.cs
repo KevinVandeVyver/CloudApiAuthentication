@@ -18,7 +18,7 @@ namespace Risk_REST.DataLayerClasses
             connection = new SqlConnection(connectionString);
         }
 
-        public Player getPlayer(long ID)
+        public IEnumerable<Player> getPlayer(long ID)
         {
             List<Player> playerList = new List<Player>();
 
@@ -45,6 +45,64 @@ namespace Risk_REST.DataLayerClasses
             }
             connection.Close();
             return playerList;
+        }
+
+        public IEnumerable<Area> getArea(long ID)
+        {
+            List<Area> areaList = new List<Area>();
+
+            SqlCommand command;
+
+            if (ID == 0)
+            {
+                command = new SqlCommand("SELECT * FROM dbo.Area", connection);
+            }
+
+            else
+            {
+                command = new SqlCommand("SELECT * FROM dbo.Area WHERE AreaId = " + ID, connection);
+            }
+
+            connection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Area area = new Area(Convert.ToInt64(reader["AreaId"]), reader["AreaName"].ToString(), reader["AreaOccupiedBy"].ToString());
+                    areaList.Add(area);
+                }
+            }
+            connection.Close();
+            return areaList;
+        }
+
+        public IEnumerable<Team> getTeam(long ID)
+        {
+            List<Team> teamList = new List<Team>();
+
+            SqlCommand command;
+
+            if (ID == 0)
+            {
+                command = new SqlCommand("SELECT * FROM dbo.Teams", connection);
+            }
+
+            else
+            {
+                command = new SqlCommand("SELECT * FROM dbo.Teams WHERE TeamId = " + ID, connection);
+            }
+
+            connection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Team team = new Team(Convert.ToInt64(reader["TeamId"]), reader["TeamColor"].ToString(),Convert.ToInt32(reader["TeamTotalOccupiedAreas"]));
+                    teamList.Add(team);
+                }
+            }
+            connection.Close();
+            return teamList;
         }
 
     }
