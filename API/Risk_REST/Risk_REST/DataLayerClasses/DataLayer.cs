@@ -18,7 +18,7 @@ namespace Risk_REST.DataLayerClasses
             connection = new SqlConnection(connectionString);
         }
 
-        public IEnumerable<Player> getPlayer(long ID)
+        public Player getPlayer(long ID)
         {
             List<Player> playerList = new List<Player>();
 
